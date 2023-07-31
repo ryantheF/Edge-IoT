@@ -1,10 +1,10 @@
 # Edge-IoT CTC
 
-This is a source code repository for our IoT lab.
+This is a source code repository for the CTC Shanghai IoT lab.
 
 It contains sample code for different sensors provided in the IoT lab. 
 
-Groups are welcome to use this place to upload their project code.
+Groups are welcome to use this place to share and exchange their project code.
 
 ## Basics
 There are several kinds of microcontroller boards or micro computers in our lab. The two most popular ones are:

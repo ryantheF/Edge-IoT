@@ -111,14 +111,13 @@ def main():
 
         # Initialize the counter
         count = 0
+        # initialize the distance and flucuation of distance
         distance = get_distance_fast()
+        # Get distance from the ultrasonic sensor
         distance_fluc = 100
-        while True:
-            
-            # Get distance from the ultrasonic sensor
+        while True:               
             if 2 < distance < 60 and distance_fluc > 5:
-                # Distance range in cm, adjust as needed
-            #if GPIO.input(motion_pin):                
+                # Distance range in cm, adjust as needed              
                 count += 1
                 lcd_string("Motion Detected!", LCD_LINE_1)
                 lcd_string(f"Count: {count}", LCD_LINE_2)
@@ -126,10 +125,11 @@ def main():
             else:
                 lcd_clear()
                 lcd_string("No Motion", LCD_LINE_1)
-            old_distance = distance.copy()
-            time.sleep(1)  # Wait for  seconds before checking again
-            distance = get_distance_fast()
-            distance_fluc = abs(distance - old_distance)
+                
+            old_distance = float(distance)  #Record current distance in a new variable
+            time.sleep(1)  # Wait for 1 seconds before checking again
+            distance = get_distance_fast()  #Re-read distance from the sensor
+            distance_fluc = abs(distance - old_distance)  #Update distance fluctuation
     except KeyboardInterrupt:
         lcd_clear()
         GPIO.cleanup()
@@ -137,4 +137,3 @@ def main():
 if __name__ == "__main__":
     
     main()
-

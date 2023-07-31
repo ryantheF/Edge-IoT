@@ -15,7 +15,7 @@ This is a microcontroller board. It is able to read inputs and turn them into ou
 See details in [the official website](https://docs.arduino.cc/hardware/uno-wifi-rev2)
 
 ### Raspberry Pi 4B
-This is a credit-sized programmable computer, which means it can do a lot more than just input/output. 
+This is a credit-sized programmable computer, which means it can do a lot more than just input/output. Typically we use **C++** or **Python** programming languages on this machine. 
 
 There are two Raspberry Pi tutorial books in our lab. Feel free to read them as you need.
 

@@ -78,7 +78,7 @@ def lcd_clear():
     lcd_byte(0x01, LCD_CMD)
 
 def get_distance_fast():
-    # Function to read distance from the ultrasonic sensor with increased measurement frequency
+    # Function to read distance from the ultrasonic sensor
 
     # Send a trigger pulse to the ultrasonic sensor
     GPIO.output(trigger_pin, GPIO.HIGH)
@@ -97,9 +97,6 @@ def get_distance_fast():
     distance = pulse_duration * 17150  # Speed of sound in cm/s
 
     return distance
-def has_stopped(prev_dis, curr_dis):
-    if abs(prev_dis-curr_dis) < 2:
-        return True
     
 def main():
     try:
@@ -114,14 +111,14 @@ def main():
 
         # Initialize the counter
         count = 0
-
+        distance = get_distance_fast()
+        distance_fluc = 100
         while True:
-            distance = get_distance_fast()
-            # Get distance from the ultrasonic sensor with increased measurement frequency
-            if 2 < distance < 60:
-
-            #if GPIO.input(motion_pin):
+            
+            # Get distance from the ultrasonic sensor
+            if 2 < distance < 60 and distance_fluc > 5:
                 # Distance range in cm, adjust as needed
+            #if GPIO.input(motion_pin):                
                 count += 1
                 lcd_string("Motion Detected!", LCD_LINE_1)
                 lcd_string(f"Count: {count}", LCD_LINE_2)
@@ -129,9 +126,10 @@ def main():
             else:
                 lcd_clear()
                 lcd_string("No Motion", LCD_LINE_1)
-            
+            old_distance = distance.copy()
             time.sleep(1)  # Wait for  seconds before checking again
-            
+            distance = get_distance_fast()
+            distance_fluc = abs(distance - old_distance)
     except KeyboardInterrupt:
         lcd_clear()
         GPIO.cleanup()
